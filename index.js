@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import keys from './keys.js';
 
 const bodyWrapper = document.createElement('div');
@@ -32,3 +31,21 @@ function getKeys(arr) {
 }
 
 getKeys(keys);
+
+function showCode(event) {
+  const { code } = event;
+  const textCode = keys.find((item) => item.code === code);
+  let item = textarea.value;
+  if (textCode.key === 'Backspace') {
+    item = item.slice(0, -1);
+    textarea.value = item;
+    event.preventDefault();
+  } else if (textCode.key === 'Del') {
+    textarea.value = item;
+    event.preventDefault();
+  } else {
+    textarea.value = item + textCode.key;
+    event.preventDefault();
+  }
+}
+window.addEventListener('keydown', showCode);
