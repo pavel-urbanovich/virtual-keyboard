@@ -141,12 +141,12 @@ const keys = [
     code: 'Backslash',
   },
   {
-    key: 'Del',
+    key: 'Delete',
     keyCode: 46,
     code: 'Delete',
   },
   {
-    key: 'Caps Lock',
+    key: 'CapsLock',
     keyCode: 20,
     code: 'CapsLock',
   },

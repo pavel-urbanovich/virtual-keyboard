@@ -71,19 +71,19 @@ h1 {
   cursor: pointer;
 }
 
-.key:nth-child(13) {
-  width: 140px;
-}
-
-.key:nth-child(29), .key:nth-child(41) {
+.key:nth-child(14) {
   width: 93px;
 }
 
-.key:nth-child(42), .key:nth-child(54) {
+.key:nth-child(30), .key:nth-child(42) {
   width: 93px;
 }
 
-.key:nth-child(58) {
+.key:nth-child(43), .key:nth-child(55) {
+  width: 93px;
+}
+
+.key:nth-child(59) {
   width: 332px;
 }
 
@@ -98,5 +98,43 @@ h1 {
           transform: scale(1.1);
   -webkit-transition: 0.1s;
   transition: 0.1s;
+}
+
+.key.uppercase {
+  text-transform: uppercase;
+}
+
+.key.active-caps {
+  background: red;
+  color: bisque;
+}
+
+.key.animation {
+  -webkit-animation: change-background 0.5s linear;
+          animation: change-background 0.5s linear;
+}
+
+@-webkit-keyframes change-background {
+  0% {
+    background: blue;
+  }
+  50% {
+    border-radius: 50%;
+  }
+  100% {
+    background: red;
+  }
+}
+
+@keyframes change-background {
+  0% {
+    background: blue;
+  }
+  50% {
+    border-radius: 50%;
+  }
+  100% {
+    background: red;
+  }
 }
 /*# sourceMappingURL=style.css.map */

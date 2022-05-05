@@ -32,17 +32,42 @@ function getKeys(arr) {
 
 getKeys(keys);
 
+function showAnimationKey(e) {
+  const findKey = [...document.querySelectorAll('.key')].find((item) => item.innerHTML === e);
+  if (findKey) {
+    findKey.classList.add('animation');
+    setTimeout(() => findKey.classList.remove('animation'), 500);
+  }
+}
+
+function doCapsLock() {
+  const letters = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'];
+  const letterKeys = [...document.querySelectorAll('.key')].filter((item) => letters.includes(item.textContent));
+  letterKeys.forEach((item) => item.classList.toggle('uppercase'));
+  const keyCapsLock = [...document.querySelectorAll('.key')].find((item) => item.textContent === 'CapsLock');
+  keyCapsLock.classList.toggle('active-caps');
+}
+
 function showCode(event) {
   const { code } = event;
+  let startPos = textarea.selectionStart;
+  showAnimationKey(event.key);
   const textCode = keys.find((item) => item.code === code);
   let item = textarea.value;
   if (textCode.key === 'Backspace') {
     item = item.slice(0, -1);
     textarea.value = item;
-    event.preventDefault();
   } else if (textCode.key === 'Del') {
     textarea.value = item;
-    event.preventDefault();
+  } else if (textCode.key === 'Tab') {
+    textarea.value = `${textarea.value.slice(0, startPos)}        ${textarea.value.slice(startPos)}`;
+  } else if (textCode.key === 'Delete') {
+    textarea.value = textarea.value.slice(startPos, 0) + textarea.value;
+  } else if (textCode.key === 'CapsLock') {
+    doCapsLock();
+  } else if (textCode.key === 'Enter') {
+    textarea.focus();
+    startPos = textarea.value.length;
   } else {
     textarea.value = item + textCode.key;
     event.preventDefault();
