@@ -1,4 +1,6 @@
-import keys from './keys.js';
+import {
+  keys, letters, numbersPoints, secondNumbersPoints,
+} from './keys.js';
 
 const bodyWrapper = document.createElement('div');
 bodyWrapper.classList.add('wrapper');
@@ -33,7 +35,7 @@ function getKeys(arr) {
 getKeys(keys);
 
 function showAnimationKey(e) {
-  const findKey = [...document.querySelectorAll('.key')].find((item) => item.innerHTML === e);
+  const findKey = [...document.querySelectorAll('.key')].find((item) => item.innerHTML === e || item.innerHTML === e.toUpperCase());
   if (findKey) {
     findKey.classList.add('animation');
     setTimeout(() => findKey.classList.remove('animation'), 500);
@@ -41,11 +43,38 @@ function showAnimationKey(e) {
 }
 
 function doCapsLock() {
-  const letters = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'];
   const letterKeys = [...document.querySelectorAll('.key')].filter((item) => letters.includes(item.textContent));
-  letterKeys.forEach((item) => item.classList.toggle('uppercase'));
+  letterKeys.forEach((item) => {
+    const content = item;
+    content.innerHTML = `${item.innerHTML.toUpperCase()}`;
+  });
   const keyCapsLock = [...document.querySelectorAll('.key')].find((item) => item.textContent === 'CapsLock');
+  if (keyCapsLock.classList.contains('active-caps')) {
+    const lettersUpper = letters.map((item) => item.toUpperCase());
+    const letterKeysUpper = [...document.querySelectorAll('.key')].filter((item) => lettersUpper.includes(item.innerHTML));
+    letterKeysUpper.forEach((item) => {
+      const content = item;
+      content.innerHTML = `${content.innerHTML.toLowerCase()}`;
+    });
+  }
   keyCapsLock.classList.toggle('active-caps');
+}
+
+function doShift() {
+  const letterKeysSHF = [...document.querySelectorAll('.key')].filter((item) => numbersPoints.includes(item.innerHTML));
+  const letterKeys = [...document.querySelectorAll('.key')].filter((item) => letters.includes(item.textContent));
+  letterKeys.forEach((item) => {
+    const content = item;
+    content.innerHTML = `${item.innerHTML.toUpperCase()}`;
+  });
+  letterKeysSHF.forEach((item) => {
+    const content = item;
+    keys.forEach((elem) => {
+      if (content.innerHTML === elem.key) {
+        content.innerHTML = `${elem.secondkey}`;
+      }
+    });
+  });
 }
 
 function showCode(event) {
@@ -68,9 +97,34 @@ function showCode(event) {
   } else if (textCode.key === 'Enter') {
     textarea.focus();
     startPos = textarea.value.length;
+  } else if (textCode.key === 'Shift' && event.code === 'ShiftLeft') {
+    doShift();
   } else {
-    textarea.value = item + textCode.key;
+    textarea.value = `${item}${event.key}`;
     event.preventDefault();
   }
 }
 window.addEventListener('keydown', showCode);
+
+function endKeyShift(event) {
+  const keyName = event.key;
+  if (keyName === 'Shift') {
+    const letterKeysSHF = [...document.querySelectorAll('.key')].filter((item) => secondNumbersPoints.includes(item.textContent));
+    const lettersUpper = letters.map((item) => item.toUpperCase());
+    const letterKeysUpper = [...document.querySelectorAll('.key')].filter((item) => lettersUpper.includes(item.innerHTML));
+    letterKeysUpper.forEach((item) => {
+      const content = item;
+      content.innerHTML = `${content.innerHTML.toLowerCase()}`;
+    });
+    letterKeysSHF.forEach((item) => {
+      const content = item;
+      keys.forEach((elem) => {
+        if (content.textContent === elem.secondkey) {
+          content.innerHTML = `${elem.key}`;
+        }
+      });
+    });
+  }
+}
+
+window.addEventListener('keyup', endKeyShift, false);

@@ -1,69 +1,81 @@
-/* eslint-disable linebreak-style */
 const keys = [
   {
     key: '`',
     keyCode: 192,
     code: 'Backquote',
+    secondkey: '~',
   },
   {
     key: '1',
     keyCode: 49,
     code: 'Digit1',
+    secondkey: '!',
   },
   {
     key: '2',
     keyCode: 50,
     code: 'Digit2',
+    secondkey: '@',
   },
   {
     key: '3',
     keyCode: 51,
     code: 'Digit3',
+    secondkey: '#',
   },
   {
     key: '4',
     keyCode: 52,
     code: 'Digit4',
+    secondkey: '$',
   },
   {
     key: '5',
     keyCode: 53,
     code: 'Digit5',
+    secondkey: '%',
   },
   {
     key: '6',
     keyCode: 54,
     code: 'Digit6',
+    secondkey: '^',
   },
   {
     key: '7',
     keyCode: 55,
     code: 'Digit7',
+    secondkey: '&',
   },
   {
     key: '8',
     keyCode: 56,
     code: 'Digit8',
+    secondkey: '*',
   },
   {
     key: '9',
     keyCode: 57,
     code: 'Digit9',
+    secondkey: '(',
   },
   {
     key: '0',
     keyCode: 48,
     code: 'Digit0',
+    secondkey: ')',
   },
   {
     key: '-',
     keyCode: 109,
     code: 'Minus',
+    secondkey: '_',
   },
   {
     key: '=',
     keyCode: 61,
     code: 'Equal',
+    secondkey: '+',
   },
   {
     key: 'Backspace',
@@ -129,16 +141,19 @@ const keys = [
     key: '[',
     keyCode: 160,
     code: 'BracketLeft',
+    secondkey: '{',
   },
   {
     key: ']',
     keyCode: 221,
     code: 'BracketRight',
+    secondkey: '}',
   },
   {
     key: '\\',
     keyCode: 220,
     code: 'Backslash',
+    secondkey: '|',
   },
   {
     key: 'Delete',
@@ -199,11 +214,13 @@ const keys = [
     key: ';',
     keyCode: 59,
     code: 'Semicolon',
+    secondkey: ':',
   },
   {
     key: "'",
     keyCode: 222,
     code: 'Quote',
+    secondkey: '"',
   },
   {
     key: 'Enter',
@@ -254,16 +271,19 @@ const keys = [
     key: ',',
     keyCode: 108,
     code: 'Comma',
+    secondkey: '<',
   },
   {
     key: '.',
     keyCode: 190,
     code: 'Period',
+    secondkey: '>',
   },
   {
     key: '/',
     keyCode: 191,
     code: 'Slash',
+    secondkey: '?',
   },
   {
     key: '&#8593;',
@@ -322,4 +342,10 @@ const keys = [
   },
 ];
 
-export default keys;
+const letters = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'];
+const numbersPoints = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '[', ']', '\\', ';', '\'', ',', '.', '/'];
+const secondNumbersPoints = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '{', '}', '|', ':', '"', '<', '>', '?'];
+
+export {
+  keys, letters, numbersPoints, secondNumbersPoints,
+};
