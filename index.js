@@ -35,18 +35,11 @@ function getKeys(arr) {
 getKeys(keys);
 
 function showAnimationKey(e) {
-  const findKey = [...document.querySelectorAll('.key')].filter((item) => item.innerHTML === e || item.innerHTML === e.toUpperCase());
-  if (findKey.length > 1) {
-    findKey.forEach((item) => {
-      if (item.hasAttribute('left')) {
-        findKey[0].classList.add('animation');
-        setTimeout(() => findKey[0].classList.remove('animation'), 500);
-      }
-      findKey[1].classList.add('animation');
-      setTimeout(() => findKey[1].classList.remove('animation'), 500);
-    });
-  } findKey[0].classList.add('animation');
-  setTimeout(() => findKey[0].classList.remove('animation'), 500);
+  const findKey = [...document.querySelectorAll('.key')].find((item) => item.innerHTML === e || item.innerHTML === e.toUpperCase());
+  if (findKey) {
+    findKey.classList.add('animation');
+    setTimeout(() => findKey.classList.remove('animation'), 500);
+  }
 }
 
 function doCapsLock() {
@@ -84,6 +77,10 @@ function doShift() {
   });
 }
 
+function doKeyAlt() {
+  showAnimationKey('Alt');
+}
+
 function showCode(event) {
   const { code } = event;
   let startPos = textarea.selectionStart;
@@ -104,10 +101,55 @@ function showCode(event) {
   } else if (textCode.key === 'Enter') {
     textarea.focus();
     startPos = textarea.value.length;
-  } else if (textCode.key === 'Shift' && event.code === 'ShiftLeft') {
+  } else if (textCode.code === 'ShiftLeft') {
     doShift();
-  } else if (textCode.key === 'Shift' && event.code === 'ShiftRight') {
+  } else if (textCode.code === 'ShiftRight') {
+    const shiftKey = [...document.querySelectorAll('.key')].filter((el) => el.innerHTML === 'Shift');
+    shiftKey[0].classList.remove('animation');
+    shiftKey[1].classList.add('animation');
+    setTimeout(() => shiftKey[1].classList.remove('animation'), 500);
+    textarea.value = `${item}`;
     doShift();
+  } else if (textCode.code === 'AltLeft') {
+    event.preventDefault();
+    doKeyAlt();
+  } else if (textCode.code === 'AltRight') {
+    event.preventDefault();
+    const altKey = [...document.querySelectorAll('.key')].filter((el) => el.innerHTML === 'Alt');
+    altKey[0].classList.remove('animation');
+    altKey[1].classList.add('animation');
+    setTimeout(() => altKey[1].classList.remove('animation'), 500);
+    textarea.value = `${item}`;
+  } else if (textCode.key === '&#8594;') {
+    const arrowEl = [...document.querySelectorAll('.key')].find((el) => el.innerHTML === '→');
+    arrowEl.classList.add('animation');
+    setTimeout(() => arrowEl.classList.remove('animation'), 500);
+    textarea.value = `${item}→`;
+  } else if (textCode.key === '&#8595;') {
+    const arrowEl = [...document.querySelectorAll('.key')].find((el) => el.innerHTML === '↓');
+    arrowEl.classList.add('animation');
+    setTimeout(() => arrowEl.classList.remove('animation'), 500);
+    textarea.value = `${item}↓`;
+  } else if (textCode.key === '&#8592;') {
+    const arrowEl = [...document.querySelectorAll('.key')].find((el) => el.innerHTML === '←');
+    arrowEl.classList.add('animation');
+    setTimeout(() => arrowEl.classList.remove('animation'), 500);
+    textarea.value = `${item}←`;
+  } else if (textCode.key === '&#8593;') {
+    const arrowEl = [...document.querySelectorAll('.key')].find((el) => el.innerHTML === '↑');
+    arrowEl.classList.add('animation');
+    setTimeout(() => arrowEl.classList.remove('animation'), 500);
+    textarea.value = `${item}↑`;
+  } else if (textCode.code === 'ControlLeft') {
+    const controlKey = [...document.querySelectorAll('.key')].find((el) => el.innerHTML === 'Ctrl');
+    controlKey.classList.add('animation');
+    setTimeout(() => controlKey.classList.remove('animation'), 500);
+    textarea.value = `${item}`;
+  } else if (textCode.code === 'ControlRight') {
+    const controlKey = [...document.querySelectorAll('.key')].filter((el) => el.innerHTML === 'Ctrl');
+    controlKey[1].classList.add('animation');
+    setTimeout(() => controlKey[1].classList.remove('animation'), 500);
+    textarea.value = `${item}`;
   } else {
     textarea.value = `${item}${event.key}`;
     event.preventDefault();
@@ -140,6 +182,10 @@ window.addEventListener('keyup', endKeyShift, false);
 
 function addDataSetName(event) {
   if (event.code === 'ShiftLeft') {
+    const shiftLeft = [...document.querySelectorAll('.key')].find((item) => item.textContent === 'Shift');
+    shiftLeft.setAttribute('name', 'left');
+  }
+  if (event.code === 'ControlLeft') {
     const shiftLeft = [...document.querySelectorAll('.key')].find((item) => item.textContent === 'Shift');
     shiftLeft.setAttribute('name', 'left');
   }
