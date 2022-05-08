@@ -35,11 +35,18 @@ function getKeys(arr) {
 getKeys(keys);
 
 function showAnimationKey(e) {
-  const findKey = [...document.querySelectorAll('.key')].find((item) => item.innerHTML === e || item.innerHTML === e.toUpperCase());
-  if (findKey) {
-    findKey.classList.add('animation');
-    setTimeout(() => findKey.classList.remove('animation'), 500);
-  }
+  const findKey = [...document.querySelectorAll('.key')].filter((item) => item.innerHTML === e || item.innerHTML === e.toUpperCase());
+  if (findKey.length > 1) {
+    findKey.forEach((item) => {
+      if (item.hasAttribute('left')) {
+        findKey[0].classList.add('animation');
+        setTimeout(() => findKey[0].classList.remove('animation'), 500);
+      }
+      findKey[1].classList.add('animation');
+      setTimeout(() => findKey[1].classList.remove('animation'), 500);
+    });
+  } findKey[0].classList.add('animation');
+  setTimeout(() => findKey[0].classList.remove('animation'), 500);
 }
 
 function doCapsLock() {
@@ -99,6 +106,8 @@ function showCode(event) {
     startPos = textarea.value.length;
   } else if (textCode.key === 'Shift' && event.code === 'ShiftLeft') {
     doShift();
+  } else if (textCode.key === 'Shift' && event.code === 'ShiftRight') {
+    doShift();
   } else {
     textarea.value = `${item}${event.key}`;
     event.preventDefault();
@@ -128,3 +137,12 @@ function endKeyShift(event) {
 }
 
 window.addEventListener('keyup', endKeyShift, false);
+
+function addDataSetName(event) {
+  if (event.code === 'ShiftLeft') {
+    const shiftLeft = [...document.querySelectorAll('.key')].find((item) => item.textContent === 'Shift');
+    shiftLeft.setAttribute('name', 'left');
+  }
+}
+
+window.addEventListener('keydown', addDataSetName);
