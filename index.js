@@ -28,6 +28,14 @@ divInfo.classList.add('info');
 divInfo.innerHTML = 'Клавиатура создана в операционной системе Windows. Для переключения языка комбинация: левыe ctrl + alt';
 bodyWrapper.append(divInfo);
 
+let value;
+
+value = JSON.parse(localStorage.getItem('lang'));
+
+if (!value) {
+  value = keys;
+}
+
 function getKeys(arr) {
   arr.forEach((element) => {
     const key = document.createElement('div');
@@ -37,7 +45,7 @@ function getKeys(arr) {
   });
 }
 
-getKeys(keys);
+getKeys(value);
 
 function showAnimationKey(e) {
   const findKey = [...document.querySelectorAll('.key')].find((item) => item.innerHTML === e || item.innerHTML === e.toUpperCase());
@@ -307,13 +315,21 @@ function swichLanguage(event) {
     if (key) {
       keyboard.innerHTML = '';
       getKeys(keys);
+      value = keys;
     } else {
       keyboard.innerHTML = '';
       getKeys(keysRus);
       letters.splice(0, letters.length, ...lettersRus);
       numbersPoints.splice(0, letters.length, ...numbersRus);
       secondNumbersPoints.splice(0, letters.length, ...secondRus);
+      value = keysRus;
     }
   }
 }
 window.addEventListener('keydown', swichLanguage);
+
+function setLocalStorage() {
+  localStorage.setItem('lang', JSON.stringify(value));
+}
+
+window.addEventListener('beforeunload', setLocalStorage);

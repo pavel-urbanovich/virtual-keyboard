@@ -87,7 +87,7 @@ h1 {
 }
 
 .key:active {
-    transform: scale(1.1);
+    transform: scale(0.9);
     transition: 0.1s;
 }
 
@@ -95,9 +95,9 @@ h1 {
     text-transform: uppercase;
 }
 
+
 .key.active-caps {
     background: red;
-    color: bisque;
 }
 
 .key.animation {
@@ -114,4 +114,10 @@ h1 {
   100% {
     background: red;
   }
+}
+
+.info {
+    width: max-content;
+    margin: 0 auto;
+    margin-top: 20px;
 }
