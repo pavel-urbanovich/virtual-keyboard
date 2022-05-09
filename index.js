@@ -1,5 +1,5 @@
 import {
-  keys, letters, numbersPoints, secondNumbersPoints,
+  keys, letters, numbersPoints, secondNumbersPoints, keysRus, lettersRus,
 } from './keys.js';
 
 const bodyWrapper = document.createElement('div');
@@ -95,7 +95,7 @@ function showCode(event) {
   } else if (textCode.key === 'Tab') {
     textarea.value = `${textarea.value.slice(0, startPos)}        ${textarea.value.slice(startPos)}`;
   } else if (textCode.key === 'Delete') {
-    textarea.value = textarea.value.slice(startPos, 0) + textarea.value;
+    textarea.value = textarea.value.slice(0, startPos) + textarea.value.slice(startPos + 1);
   } else if (textCode.key === 'CapsLock') {
     doCapsLock();
   } else if (textCode.key === 'Enter') {
@@ -143,12 +143,17 @@ function showCode(event) {
   } else if (textCode.code === 'ControlLeft') {
     const controlKey = [...document.querySelectorAll('.key')].find((el) => el.innerHTML === 'Ctrl');
     controlKey.classList.add('animation');
-    setTimeout(() => controlKey.classList.remove('animation'), 500);
+    controlKey.classList.add('active-caps');
     textarea.value = `${item}`;
   } else if (textCode.code === 'ControlRight') {
     const controlKey = [...document.querySelectorAll('.key')].filter((el) => el.innerHTML === 'Ctrl');
     controlKey[1].classList.add('animation');
-    setTimeout(() => controlKey[1].classList.remove('animation'), 500);
+    controlKey[1].classList.add('active-caps');
+    textarea.value = `${item}`;
+  } else if (textCode.code === 'MetaLeft') {
+    const metaKey = [...document.querySelectorAll('.key')].find((el) => el.innerHTML === 'Win');
+    metaKey.classList.add('animation');
+    setTimeout(() => metaKey.classList.remove('animation'), 500);
     textarea.value = `${item}`;
   } else {
     textarea.value = `${item}${event.key}`;
@@ -180,15 +185,126 @@ function endKeyShift(event) {
 
 window.addEventListener('keyup', endKeyShift, false);
 
-function addDataSetName(event) {
-  if (event.code === 'ShiftLeft') {
-    const shiftLeft = [...document.querySelectorAll('.key')].find((item) => item.textContent === 'Shift');
-    shiftLeft.setAttribute('name', 'left');
-  }
-  if (event.code === 'ControlLeft') {
-    const shiftLeft = [...document.querySelectorAll('.key')].find((item) => item.textContent === 'Shift');
-    shiftLeft.setAttribute('name', 'left');
+function endKeyCtrl() {
+  const keyControl = [...document.querySelectorAll('.key')].filter((item) => item.innerHTML === 'Ctrl');
+  keyControl[0].classList.remove('active-caps');
+  keyControl[1].classList.remove('active-caps');
+}
+
+window.addEventListener('keyup', endKeyCtrl, false);
+
+function showKeyTextarea(event) {
+  const { target } = event;
+  if (target.classList.contains('key')) {
+    showAnimationKey(target.innerHTML);
+    const startPos = textarea.selectionStart;
+    if (target.innerHTML === 'Backspace') {
+      textarea.value = textarea.value.slice(0, -1);
+    } else if (target.innerHTML === 'Tab') {
+      textarea.value = `${textarea.value.slice(0, startPos)}        ${textarea.value.slice(startPos)}`;
+    } else if (target.innerHTML === 'Delete') {
+      textarea.value = textarea.value.slice(0, startPos) + textarea.value.slice(startPos + 1);
+    } else if (target.innerHTML === 'Enter') {
+      textarea.focus();
+      textarea.value += '\n';
+    } else if (target.innerHTML === 'CapsLock') {
+      doCapsLock();
+    } else if (target.innerHTML === 'Shift') {
+      const findKey = [...document.querySelectorAll('.key')].find((item) => item.innerHTML === 'Shift');
+      findKey.classList.remove('animation');
+      textarea.value = `${textarea.value}`;
+    } else if (target.innerHTML === 'Ctrl') {
+      textarea.value = `${textarea.value}`;
+    } else if (target.innerHTML === 'Alt') {
+      const findKey = [...document.querySelectorAll('.key')].find((item) => item.innerHTML === 'Alt');
+      findKey.classList.add('animation');
+      textarea.value = `${textarea.value}`;
+    } else {
+      textarea.value = `${textarea.value}${target.innerHTML}`;
+    }
   }
 }
 
-window.addEventListener('keydown', addDataSetName);
+keyboard.addEventListener('click', showKeyTextarea);
+
+function endKeyShiftMouse(e) {
+  e.target.classList.remove('active-caps');
+  const letterKeysSHF = [...document.querySelectorAll('.key')].filter((item) => secondNumbersPoints.includes(item.textContent));
+  const lettersUpper = letters.map((item) => item.toUpperCase());
+  const letterKeysUpper = [...document.querySelectorAll('.key')].filter((item) => lettersUpper.includes(item.innerHTML));
+  letterKeysUpper.forEach((item) => {
+    const content = item;
+    content.innerHTML = `${content.innerHTML.toLowerCase()}`;
+  });
+  letterKeysSHF.forEach((item) => {
+    const content = item;
+    keys.forEach((elem) => {
+      if (content.textContent === elem.secondkey) {
+        content.innerHTML = `${elem.key}`;
+      }
+    });
+  });
+}
+
+function showAnimationKeyMouseEvent(e) {
+  e.target.classList.add('animation');
+  setTimeout(() => e.target.classList.remove('animation'), 500);
+}
+
+function doShiftMouse(event) {
+  showAnimationKeyMouseEvent(event);
+  event.target.classList.add('active-caps');
+  const letterKeysSHF = [...document.querySelectorAll('.key')].filter((item) => numbersPoints.includes(item.innerHTML));
+  const letterKeys = [...document.querySelectorAll('.key')].filter((item) => letters.includes(item.textContent));
+  letterKeys.forEach((item) => {
+    const content = item;
+    content.innerHTML = `${item.innerHTML.toUpperCase()}`;
+  });
+  letterKeysSHF.forEach((item) => {
+    const content = item;
+    keys.forEach((elem) => {
+      if (content.innerHTML === elem.key) {
+        content.innerHTML = `${elem.secondkey}`;
+      }
+    });
+  });
+}
+
+const shiftKeyLeft = [...document.querySelectorAll('.key')].find((el) => el.innerHTML === 'Shift');
+
+shiftKeyLeft.addEventListener('mousedown', doShiftMouse);
+
+shiftKeyLeft.addEventListener('mouseup', endKeyShiftMouse, false);
+
+const shiftKeyRight = [...document.querySelectorAll('.key')].filter((el) => el.innerHTML === 'Shift');
+
+shiftKeyRight[1].addEventListener('mousedown', doShiftMouse);
+
+shiftKeyRight[1].addEventListener('mouseup', endKeyShiftMouse, false);
+
+const altKeyLeft = [...document.querySelectorAll('.key')].filter((el) => el.innerHTML === 'Alt');
+
+function dokeyAltMouse(e) {
+  showAnimationKeyMouseEvent(e);
+}
+
+altKeyLeft[1].addEventListener('click', dokeyAltMouse);
+
+const contolKey = [...document.querySelectorAll('.key')].filter((el) => el.innerHTML === 'Ctrl');
+
+contolKey[1].addEventListener('click', dokeyAltMouse);
+
+function swichLanguage(event) {
+  if (event.ctrlKey && event.altKey) {
+    const key = [...document.querySelectorAll('.key')].find((item) => item.innerHTML === 'й');
+    if (key) {
+      keyboard.innerHTML = '';
+      getKeys(keys);
+    } else {
+      keyboard.innerHTML = '';
+      getKeys(keysRus);
+      letters.splice(0, letters.length, ...lettersRus);
+    }
+  }
+}
+window.addEventListener('keydown', swichLanguage);
