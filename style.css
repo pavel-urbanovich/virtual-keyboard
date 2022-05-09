@@ -1,0 +1,147 @@
+html {
+  position: relative;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  max-width: 1280px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+*, *:after, *:before {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+h1 {
+  margin: 0;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100vh;
+}
+
+.title {
+  text-align: center;
+  padding: 20px;
+}
+
+.field {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  height: 20%;
+  font-size: 20px;
+}
+
+.keyboard-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 737px;
+  margin: 0 auto;
+  background: gray;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.keyboard {
+  margin: 0 auto;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 3px;
+}
+
+.key {
+  width: 45px;
+  height: 45px;
+  background: #1b1b1b;
+  border-radius: 3px;
+  padding: 3px;
+  color: #fff;
+  text-align: center;
+  padding-top: 13px;
+  cursor: pointer;
+}
+
+.key:nth-child(14) {
+  width: 93px;
+}
+
+.key:nth-child(30), .key:nth-child(42) {
+  width: 93px;
+}
+
+.key:nth-child(43), .key:nth-child(55) {
+  width: 93px;
+}
+
+.key:nth-child(59) {
+  width: 332px;
+}
+
+.key:hover {
+  opacity: 0.7;
+  -webkit-transition: 0.3s ease-in;
+  transition: 0.3s ease-in;
+}
+
+.key:active {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+}
+
+.key.uppercase {
+  text-transform: uppercase;
+}
+
+.key.active-caps {
+  background: red;
+}
+
+.key.animation {
+  -webkit-animation: change-background 0.5s linear;
+          animation: change-background 0.5s linear;
+}
+
+@-webkit-keyframes change-background {
+  0% {
+    background: blue;
+  }
+  50% {
+    border-radius: 50%;
+  }
+  100% {
+    background: red;
+  }
+}
+
+@keyframes change-background {
+  0% {
+    background: blue;
+  }
+  50% {
+    border-radius: 50%;
+  }
+  100% {
+    background: red;
+  }
+}
+
+.info {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+/*# sourceMappingURL=style.css.map */
