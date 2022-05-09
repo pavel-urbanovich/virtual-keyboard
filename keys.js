@@ -359,7 +359,7 @@ const keysRus = [
     key: '2',
     keyCode: 50,
     code: 'Digit2',
-    secondkey: '@',
+    secondkey: '"',
   },
   {
     key: '3',
@@ -687,10 +687,12 @@ const keysRus = [
 ];
 
 const letters = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'];
-const lettersRus = ['ё', 'б', 'ю', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'x', 'ъ', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь'];
+const lettersRus = ['ё', 'б', 'ю', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь'];
 const numbersPoints = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '[', ']', '\\', ';', '\'', ',', '.', '/'];
+const numbersRus = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'х', 'ъ', '\\', 'ж', 'э', 'б', 'ю', '.'];
 const secondNumbersPoints = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '{', '}', '|', ':', '"', '<', '>', '?'];
+const secondRus = ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Х', 'Ъ', '|', 'Ж', 'Э', 'Б', 'Ю', ',', ''];
 
 export {
-  keys, letters, numbersPoints, secondNumbersPoints, keysRus, lettersRus,
+  keys, letters, numbersPoints, secondNumbersPoints, keysRus, lettersRus, numbersRus, secondRus,
 };

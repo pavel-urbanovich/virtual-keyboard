@@ -136,4 +136,12 @@ h1 {
     background: red;
   }
 }
+
+.info {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: 0 auto;
+  margin-top: 20px;
+}
 /*# sourceMappingURL=style.css.map */

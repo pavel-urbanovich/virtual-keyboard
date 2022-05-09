@@ -1,5 +1,5 @@
 import {
-  keys, letters, numbersPoints, secondNumbersPoints, keysRus, lettersRus,
+  keys, letters, numbersPoints, secondNumbersPoints, keysRus, lettersRus, numbersRus, secondRus,
 } from './keys.js';
 
 const bodyWrapper = document.createElement('div');
@@ -22,6 +22,11 @@ keyboard.classList.add('keyboard');
 bodyWrapper.append(title, textarea, keyboardcontainer);
 
 keyboardcontainer.append(keyboard);
+
+const divInfo = document.createElement('div');
+divInfo.classList.add('info');
+divInfo.innerHTML = 'Клавиатура создана в операционной системе Windows. Для переключения языка комбинация: левыe ctrl + alt';
+bodyWrapper.append(divInfo);
 
 function getKeys(arr) {
   arr.forEach((element) => {
@@ -219,6 +224,8 @@ function showKeyTextarea(event) {
       const findKey = [...document.querySelectorAll('.key')].find((item) => item.innerHTML === 'Alt');
       findKey.classList.add('animation');
       textarea.value = `${textarea.value}`;
+    } else if (target.innerHTML === 'Win') {
+      textarea.value = `${textarea.value}`;
     } else {
       textarea.value = `${textarea.value}${target.innerHTML}`;
     }
@@ -304,6 +311,8 @@ function swichLanguage(event) {
       keyboard.innerHTML = '';
       getKeys(keysRus);
       letters.splice(0, letters.length, ...lettersRus);
+      numbersPoints.splice(0, letters.length, ...numbersRus);
+      secondNumbersPoints.splice(0, letters.length, ...secondRus);
     }
   }
 }
